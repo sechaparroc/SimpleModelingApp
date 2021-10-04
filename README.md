@@ -17,7 +17,7 @@ Once a Shape is selected within the Shape Selection area, you could click over a
 
 ![Example](https://github.com/sechaparroc/SimpleModelingApp/blob/main/images/clickShape.gif)
 
-## Basic Camera transformations interactions
+## Basic Camera transformation interactions
 
 To interact with the Main area camera drag the mouse without picking any shape:
 	- Rotate the camera dragging with the LEFT Mouse button.
@@ -29,7 +29,7 @@ Note that Two Auxiliary Views, corresponding to XZ and YZ planes w.r.t the eye, 
 ![Example](https://github.com/sechaparroc/SimpleModelingApp/blob/main/images/camera.gif)	
 
 
-## Basic shape transformations interaction
+## Basic shape transformation interactions
 
 Once a shape is added into the Main interactive area it could be translated, rotated and scaled by picking it and doing any of the following actions:
 
@@ -41,4 +41,4 @@ Once a shape is added into the Main interactive area it could be translated, rot
 	- Press '4' to Enable the Rotation Gizmo. 
 	- Press '1' to Disable all Gizmos and allowing to update the appearance of a Shape when mouse is clicked.
 
-
+![Example](https://github.com/sechaparroc/SimpleModelingApp/blob/main/images/gizmos.gif)	

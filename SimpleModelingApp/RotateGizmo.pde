@@ -29,23 +29,23 @@ static class RotateGizmo{ //Allows to Scale shape along main axes
         });
         yAxis.setShape((pg) -> {
             pg.push();
-            //pg.hint(PConstants.DISABLE_DEPTH_TEST);
+            pg.hint(PConstants.DISABLE_DEPTH_TEST);
             pg.rotateX(PConstants.HALF_PI);
             pg.noFill();
             pg.stroke(0,255,0, 100);
             pg.strokeWeight(8);
             pg.circle(0,0,50);
-            //pg.hint(PConstants.ENABLE_DEPTH_TEST);
+            pg.hint(PConstants.ENABLE_DEPTH_TEST);
             pg.pop();
         });
         zAxis.setShape((pg) -> {
             pg.push();
-            //pg.hint(PConstants.DISABLE_DEPTH_TEST);
+            pg.hint(PConstants.DISABLE_DEPTH_TEST);
             pg.noFill();
             pg.stroke(0,0,255, 100);
             pg.strokeWeight(8);
             pg.circle(0,0,50);
-            //pg.hint(PConstants.ENABLE_DEPTH_TEST);
+            pg.hint(PConstants.ENABLE_DEPTH_TEST);
             pg.pop();
         });
 
