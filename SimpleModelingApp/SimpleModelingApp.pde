@@ -1,3 +1,7 @@
+/*
+This demo is a 3D Modeling Application built with nub, a simple, expressive, language-agnostic, and extensible visual computing library, featuring interaction, visualization and animation frameworks.
+*/
+
 import nub.core.*;
 import nub.primitives.*;
 import nub.processing.*;

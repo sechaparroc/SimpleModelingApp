@@ -56,7 +56,7 @@ static class Utils{
     }
 
 
-    public static PShape createCone(int detail, float radius, float height) {
+    static PShape createCone(int detail, float radius, float height) {
         float[] unitConeX = new float[detail + 1];
         float[] unitConeZ = new float[detail + 1];
         for (int i = 0; i <= detail; i++) {

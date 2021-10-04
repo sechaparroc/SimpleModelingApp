@@ -1,12 +1,12 @@
 static class TranslateGizmo{ //Allows to Scale shape along main axes
-    public Component current;
-    public Node ref;
-    public Node xAxis, yAxis, zAxis;
+    Component current;
+    Node ref;
+    Node xAxis, yAxis, zAxis;
     Node axes[];
     int colors[];
     Vector start;
 
-    public TranslateGizmo(Scene scene){
+    TranslateGizmo(Scene scene){
         ref = new Node();
         ref.tagging = false;
         scene.setVisit(ref, (node) -> {
@@ -57,19 +57,19 @@ static class TranslateGizmo{ //Allows to Scale shape along main axes
         }
     }
 
-    public void attachToComponent(MainArea area, Component component){
+    void attachToComponent(MainArea area, Component component){
         current = component;
         ref.attach();
         ref.setReference(area.reference);
     }
 
-    public  void detach(){
+    void detach(){
         current = null;
         ref.detach();
     }
 
 
-    public void interact(Node node, float dx, float dy, float dz){
+    void interact(Node node, float dx, float dy, float dz){
         BiFunction filter = current.translationFilter();
         Object[] params = current.cacheTranslationParams;
         //current.setTranslationAxisFilter(current.location(node));
@@ -84,7 +84,7 @@ static class TranslateGizmo{ //Allows to Scale shape along main axes
 
 
     //Given a Node determines if belongs to this Tool
-    public boolean hasFocus(Node node){
+    boolean hasFocus(Node node){
         return node == xAxis || node == yAxis || node == zAxis;
     }
 }

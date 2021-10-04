@@ -4,16 +4,16 @@ static class ColorSelectionArea  implements InteractiveArea{
         SELECT
     }
 
-    public Scene scene;
-    public Node reference;
+    Scene scene;
+    Node reference;
 
     int x, y;
-    public int currentColor;
+    int currentColor;
 
     HashMap<Node, Integer> colorOptions = new HashMap<>();
     ArrayList<Node> options = new ArrayList<>();
 
-    public ColorSelectionArea(PApplet pApplet, int x, int y, int w, int h){
+    ColorSelectionArea(PApplet pApplet, int x, int y, int w, int h){
         this.x = x;
         this.y = y;
         scene = new Scene(pApplet.createGraphics(w, h, PConstants.P3D));
@@ -29,7 +29,7 @@ static class ColorSelectionArea  implements InteractiveArea{
         currentColor = colorOptions.get(node);
     }
 
-    public void generateOption(int colour, float dim){ //pshape must be in scene dims
+    void generateOption(int colour, float dim){ //pshape must be in scene dims
         PShape pshape = Utils.generateShape( Utils.Shape.SPHERE, dim, colour);
         Node option = new Node(reference);
         option.setHighlight(0.5f);
@@ -41,7 +41,7 @@ static class ColorSelectionArea  implements InteractiveArea{
         options.add(option);
     }
 
-    public void locateOptions(){
+    void locateOptions(){
         float w_step = 1 * scene.radius() * scene.aspectRatio() / colorOptions.size();
         float x = - scene.radius() * scene.aspectRatio() * 0.5f + w_step * 0.5f;
         for(Node n : options){
@@ -50,7 +50,7 @@ static class ColorSelectionArea  implements InteractiveArea{
         }
     }
 
-    public void generateOptions(){
+    void generateOptions(){
         //Define most common color
         int[] colors = new int []{
             Scene.pApplet.color(0,0,0),
@@ -80,7 +80,7 @@ static class ColorSelectionArea  implements InteractiveArea{
         }
     }
 
-    public void display(int c){
+    void display(int c){
         scene.openContext();
         scene.context().directionalLight(102, 102, 102, 0,0, -1);
         scene.context().ambientLight(102, 102, 102);
@@ -108,7 +108,7 @@ static class ColorSelectionArea  implements InteractiveArea{
         scene.image(x,y);
     }
 
-    public void interact(Object[] gesture) {
+    void interact(Object[] gesture) {
         switch((ColorSelectionArea.ColorSelectionInteraction) gesture[0]){
             case SELECT : {
                 currentColor = colorOptions.get(scene.node());

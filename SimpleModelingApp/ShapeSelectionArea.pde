@@ -4,21 +4,21 @@ static class ShapeSelectionArea implements InteractiveArea{
         SELECT, GENERATE
     }
 
-    public Scene scene;
-    public Node reference;
-    public Node cursor;
+    Scene scene;
+    Node reference;
+    Node cursor;
 
     int x, y;
-    public Utils.Shape currentShapeType;
-    public int fillColor;
+    Utils.Shape currentShapeType;
+    int fillColor;
 
     HashMap<Node, Utils.Shape> shapeOptions = new HashMap<>();
     ArrayList<Node> options = new ArrayList<Node>();
 
     //keep a reference of the main area
-    public MainArea mainArea;
+    MainArea mainArea;
 
-    public ShapeSelectionArea(PApplet pApplet, int x, int y, int w, int h){
+    ShapeSelectionArea(PApplet pApplet, int x, int y, int w, int h){
         this.x = x;
         this.y = y;
         scene = new Scene(pApplet.createGraphics(w, h, PConstants.P3D));
@@ -35,7 +35,7 @@ static class ShapeSelectionArea implements InteractiveArea{
         currentShapeType = shapeOptions.get(node);
     }
 
-    public void generateOption(Utils.Shape shapeType, float dim){ //pshape must be in scene dims
+    void generateOption(Utils.Shape shapeType, float dim){ //pshape must be in scene dims
         PShape pshape = Utils.generateShape(shapeType, dim, Scene.pApplet.color(100));
         Node option = new Node(reference);
         option.setHighlight(0.5f);
@@ -53,7 +53,7 @@ static class ShapeSelectionArea implements InteractiveArea{
         options.add(option);
     }
 
-    public void locateOptions(){
+    void locateOptions(){
         float w_step = 1 * scene.radius() * scene.aspectRatio() / shapeOptions.size();
         float x = - scene.radius() * scene.aspectRatio() * 0.5f + w_step * 0.5f;
         for(Node n : options){
@@ -62,13 +62,13 @@ static class ShapeSelectionArea implements InteractiveArea{
         }
     }
 
-    public void generateCursor(){
+    void generateCursor(){
         cursor = new Node();
         cursor.setShape(Utils.createSphere(scene.radius() * 0.05f));
         cursor.tagging = false;
     }
 
-    public void generateOptions(){
+    void generateOptions(){
         float option_size = 0.5f * min( 0.25f * 1.0f * scene.radius() * scene.aspectRatio() / Utils.Shape.values().length, scene.radius() * 0.8f);
         print(option_size);
         generateOption(Utils.Shape.BOX, option_size);
@@ -77,7 +77,7 @@ static class ShapeSelectionArea implements InteractiveArea{
         generateOption(Utils.Shape.CONE, option_size);
     }
 
-    public void display(int c, int fillColor){
+    void display(int c, int fillColor){
         this.fillColor = fillColor;
         scene.openContext();
         scene.context().ambientLight(102, 102, 102);
@@ -106,7 +106,7 @@ static class ShapeSelectionArea implements InteractiveArea{
         scene.image(x,y);
     }
 
-    public void interact(Object[] gesture) {
+    void interact(Object[] gesture) {
         switch((ShapeSelectionInteraction) gesture[0]){
             case SELECT : {
                 currentShapeType = shapeOptions.get(scene.node());
@@ -119,11 +119,11 @@ static class ShapeSelectionArea implements InteractiveArea{
     }
 
 
-    public void mouseMoved(){
+    void mouseMoved(){
 
     }
 
-    public void mouseClicked(MouseEvent event){
+    void mouseClicked(MouseEvent event){
         scene.updateTag();
         if(event.getCount() == 1) {
             scene.interact(ShapeSelectionInteraction.SELECT);
@@ -132,19 +132,19 @@ static class ShapeSelectionArea implements InteractiveArea{
         }
     }
 
-    public void mousePressed(){
+    void mousePressed(){
 
     }
 
-    public void mouseReleased(){
+    void mouseReleased(){
 
     }
 
-    public void mouseDragged(){
+    void mouseDragged(){
 
     }
 
-    public void mouseWheel(MouseEvent event){
+    void mouseWheel(MouseEvent event){
 
     }
 }

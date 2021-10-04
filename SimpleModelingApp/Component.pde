@@ -12,23 +12,23 @@ static class Component extends Node {
         EXTRUDE, CHANGE_SHAPE, SCALE_SHAPE, UPDATE_REF, ON_CHANGING_REF, CANCEL_REF_UPDATE
     }
 
-    public MainArea mainArea; //Main Area in which this component lives
+    MainArea mainArea; //Main Area in which this component lives
 
     //Auxiliar drawing attributes
-    public static boolean drawReferenceConnection = true;
+    static boolean drawReferenceConnection = true;
     Vector changingRef = null;
 
     //Shape attributes
     //Determines the Type of Shape
-    public Utils.Shape shapeType;
-    public float dim = 20; //Initial dimension size
-    public Vector shapeScale = new Vector(1,1,1);
-    public int colour;
+    Utils.Shape shapeType;
+    float dim = 20; //Initial dimension size
+    Vector shapeScale = new Vector(1,1,1);
+    int colour;
 
     //Copy hack
     static boolean copyComponent = false;
 
-    public Component(MainArea mainArea, Utils.Shape shapeType, float dim) {
+    Component(MainArea mainArea, Utils.Shape shapeType, float dim) {
         super();
         setup(mainArea);
         this.dim = dim;
@@ -36,7 +36,7 @@ static class Component extends Node {
         this.setShape(shapeType, this.colour);
     }
 
-    public Component(Component reference) {
+    Component(Component reference) {
         super(reference);
         setup(reference.mainArea);
         this.dim = reference.dim;
@@ -45,7 +45,7 @@ static class Component extends Node {
         this.setShape(reference.shapeType, this.colour);
     }
 
-    public void setup(MainArea mainArea) {
+    void setup(MainArea mainArea) {
         this.mainArea = mainArea;
         this.resetPicking();
         //Important: Only Retained Shape must be used to pick a Component
@@ -55,7 +55,7 @@ static class Component extends Node {
         this.mainArea.components.add(this);
     }
 
-    public void hud(PGraphics pg) {
+    void hud(PGraphics pg) {
         if(this.mainArea.isRenderingAuxiliar) return;
         if(drawReferenceConnection) {
             pg.fill(0);
@@ -75,18 +75,18 @@ static class Component extends Node {
         }
     }
 
-    public void setShape(Utils.Shape shapeType, int colour){
+    void setShape(Utils.Shape shapeType, int colour){
         this.shapeType = shapeType;
         PShape shape = Utils.generateShape(shapeType, this.dim, colour);
         shape.scale(shapeScale.x(), shapeScale.y(), shapeScale.z());
         setShape(shape);
     }
 
-    public PShape shape(){
+    PShape shape(){
         return _rmrShape;
     }
 
-    public void scaleShape(float x, float y, float z){
+    void scaleShape(float x, float y, float z){
         this.shapeScale._vector[0] *= x;
         this.shapeScale._vector[1] *= y;
         this.shapeScale._vector[2] *= z;
@@ -96,7 +96,7 @@ static class Component extends Node {
     //Interaction methods
 
     //When mouse is released a new Node is put on the scene
-    public void extrude() {
+    void extrude() {
         //1. Create a new component based on this one
         Component component = null;
         if(mainArea.extrusionMode == MainArea.ExtrusionMode.DUPLICATE) {
@@ -121,7 +121,7 @@ static class Component extends Node {
         mainArea.scene.tag(component);
     }
 
-    public void setReference(MainArea area) {
+    void setReference(MainArea area) {
         Node newRef = area.reference;
         //Check if any other component lies at x,y
         for (Component c : area.components) {
@@ -147,7 +147,7 @@ static class Component extends Node {
     }
 
 
-    public void interact(Object[] gesture) {
+    void interact(Object[] gesture) {
         switch ((Interaction) gesture[0]) {
             case EXTRUDE: {
                 extrude();

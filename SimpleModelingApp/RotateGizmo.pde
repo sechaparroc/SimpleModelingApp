@@ -1,10 +1,10 @@
 static class RotateGizmo{ //Allows to Scale shape along main axes
-    public Component current;
-    public Node ref;
-    public Node xAxis, yAxis, zAxis;
-    public Node[] axes;
+    Component current;
+    Node ref;
+    Node xAxis, yAxis, zAxis;
+    Node[] axes;
 
-    public RotateGizmo(Scene scene){
+    RotateGizmo(Scene scene){
         ref = new Node();
         scene.setVisit(ref, (node) -> {
             this.ref.setWorldPosition(this.current);
@@ -64,19 +64,19 @@ static class RotateGizmo{ //Allows to Scale shape along main axes
         }
     }
 
-    public void attachToComponent(MainArea area, Component component){
+    void attachToComponent(MainArea area, Component component){
         current = component;
         ref.attach();
         ref.setReference(area.reference);
     }
 
-    public void detach(){
+    void detach(){
         current = null;
         ref.detach();
     }
 
 
-    public void interact(Vector vector){
+    void interact(Vector vector){
         BiFunction filter = current.rotationFilter();
         Object[] params = current.cacheRotationParams;
         current.setRotationAxisFilter(current.displacement(vector, ref));
@@ -85,7 +85,7 @@ static class RotateGizmo{ //Allows to Scale shape along main axes
     }
 
     //Given a Node determines if belongs to this Tool
-    public boolean hasFocus(Node node){
+    boolean hasFocus(Node node){
         return node == xAxis || node == yAxis || node == zAxis;
     }
 }

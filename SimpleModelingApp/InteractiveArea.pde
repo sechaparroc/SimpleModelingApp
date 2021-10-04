@@ -1,8 +1,8 @@
-public interface InteractiveArea {
-    public void mouseMoved();
-    public void mousePressed();
-    public void mouseReleased();
-    public void mouseDragged();
-    public void mouseWheel(MouseEvent event);
-    public void mouseClicked(MouseEvent event);
+interface InteractiveArea {
+    void mouseMoved();
+    void mousePressed();
+    void mouseReleased();
+    void mouseDragged();
+    void mouseWheel(MouseEvent event);
+    void mouseClicked(MouseEvent event);
 }

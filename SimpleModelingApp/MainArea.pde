@@ -1,34 +1,34 @@
 static class MainArea implements InteractiveArea{
     //Defines the action that must be performed when a Component (Node) is Clicked
-    public enum Mode { SHAPESELECTION, SCALING_GIZMO, TRANSLATION_GIZMO, ROTATION_GIZMO }
+    enum Mode { SHAPESELECTION, SCALING_GIZMO, TRANSLATION_GIZMO, ROTATION_GIZMO }
     //Defines extrude mode
-    public enum ExtrusionMode { CURRENTSHAPE, DUPLICATE, DEEPCLONE}
+    enum ExtrusionMode { CURRENTSHAPE, DUPLICATE, DEEPCLONE}
 
     //Defines a main scene and two auxiliar scenes corresponding to the XZ Plane and the YZ plane
-    public Scene scene, sceneXZ, sceneYZ;
+    Scene scene, sceneXZ, sceneYZ;
     Scene scenes[];
     String titles[] = new String[]{"Main Scene", "Auxiliar View XZ", "Auxiliar View YZ"};
 
-    public Node reference;
-    public ShapeSelectionArea shapeSelectionArea;
-    public ColorSelectionArea colorSelectionArea;
+    Node reference;
+    ShapeSelectionArea shapeSelectionArea;
+    ColorSelectionArea colorSelectionArea;
 
     //Click mode
-    public Mode mode = Mode.SHAPESELECTION;
-    public ExtrusionMode extrusionMode = ExtrusionMode.DUPLICATE;
-    public ArrayList<Component> components = new ArrayList<Component>();
+    Mode mode = Mode.SHAPESELECTION;
+    ExtrusionMode extrusionMode = ExtrusionMode.DUPLICATE;
+    ArrayList<Component> components = new ArrayList<Component>();
 
     //Define Gizmos
-    public ScaleGizmo scaleGizmo;
-    public TranslateGizmo translateGizmo;
-    public RotateGizmo rotateGizmo;
+    ScaleGizmo scaleGizmo;
+    TranslateGizmo translateGizmo;
+    RotateGizmo rotateGizmo;
 
-    public boolean isRenderingAuxiliar = false;
+    boolean isRenderingAuxiliar = false;
 
     int colors [];
     int x, y, w, h;
 
-    public MainArea(PApplet pApplet,
+    MainArea(PApplet pApplet,
                     ShapeSelectionArea shapeSelectionArea,
                     ColorSelectionArea colorSelectionArea,
                     int x,
@@ -62,16 +62,9 @@ static class MainArea implements InteractiveArea{
         rotateGizmo = new RotateGizmo(scene);
     }
 
-    public void display(){
-
-        //rotateGizmo.ref.setWorldOrientation(new Quaternion());
-        //rotateGizmo.ref.setWorldMagnitude(1);
-
+    void display(){
         if(translateGizmo.current != null)translateGizmo.ref.setWorldPosition(translateGizmo.current);
         translateGizmo.ref.setWorldOrientation(scene.eye().worldOrientation());
-
-        //if(rotateGizmo.current != null)rotateGizmo.ref.setWorldPosition(rotateGizmo.current);
-        //rotateGizmo.ref.setWorldOrientation(scene.eye().worldOrientation());
 
         sceneXZ.eye().set(scene.eye());
         sceneXZ.eye().orbit(scene.eye().worldDisplacement(new Vector(1,0,0)), PI / 2, 0);
@@ -132,37 +125,36 @@ static class MainArea implements InteractiveArea{
     }
 
     //Define an initial component
-    public Component generateComponent(){
+    Component generateComponent(){
         Component component = new Component(this, shapeSelectionArea.currentShapeType, 20);
         component.setReference(reference);
         return component;
     }
 
-    public void resetGizmos(){
+    void resetGizmos(){
         scaleGizmo.detach();
         translateGizmo.detach();
         rotateGizmo.detach();
     }
 
-
-    public void savePosture(){
+    void savePosture(){
         for(Node node : components){
             node.addKeyFrame();
         }
     }
 
-    public void play(){
+    void play(){
         for(Node node : Scene.branch(reference)){
             node.animate();
         }
     }
 
 
-    public void mouseMoved() {
+    void mouseMoved() {
         scene.updateTag();
     }
 
-    public void mouseClicked(MouseEvent event){
+    void mouseClicked(MouseEvent event){
         if (event.getCount() == 1){
             if(event.getButton() == LEFT) {
                 switch (mode) {
@@ -206,9 +198,7 @@ static class MainArea implements InteractiveArea{
                 scene.align();
         }
     }
-
-
-    public void mousePressed(){
+    void mousePressed(){
         if(scaleGizmo.hasFocus(scene.node())){
             scaleGizmo.start = scene.node().position().copy();
         }
@@ -220,7 +210,7 @@ static class MainArea implements InteractiveArea{
             }
         }
     }
-    public void mouseDragged() {
+    void mouseDragged() {
         if (Scene.pApplet.mouseButton == PConstants.LEFT) {
             scene.spin();
         } else if (Scene.pApplet.mouseButton == PConstants.RIGHT) {
@@ -237,8 +227,7 @@ static class MainArea implements InteractiveArea{
         } else
             scene.zoom(Scene.pApplet.mouseX - Scene.pApplet.pmouseX);
     }
-
-    public void mouseReleased(){
+    void mouseReleased(){
         if(scaleGizmo.hasFocus(scene.node())){
             scaleGizmo.start = null;
         }
@@ -252,8 +241,7 @@ static class MainArea implements InteractiveArea{
             scene.interact(Component.Interaction.CANCEL_REF_UPDATE, this);
         }
     }
-
-    public void mouseWheel(MouseEvent event) {
+    void mouseWheel(MouseEvent event) {
         scene.moveForward(event.getCount() * 5);
     }
 }

@@ -1,12 +1,12 @@
 static class ScaleGizmo{ //Allows to Scale shape along main axes
-    public Component current;
-    public Node ref;
-    public Node xAxis, yAxis, zAxis;
-    public Node[] axes;
+    Component current;
+    Node ref;
+    Node xAxis, yAxis, zAxis;
+    Node[] axes;
     int[] colors;
-    public Vector start;
+    Vector start;
 
-    public ScaleGizmo(Scene scene){
+    ScaleGizmo(Scene scene){
         ref = new Node();
         ref.tagging = false;
         scene.setVisit(ref, (node) -> {
@@ -68,18 +68,18 @@ static class ScaleGizmo{ //Allows to Scale shape along main axes
         }
     }
 
-    public void attachToComponent(MainArea area, Component component){
+    void attachToComponent(MainArea area, Component component){
         current = component;
         ref.attach();
         ref.setReference(area.reference);
     }
 
-    public void detach(){
+    void detach(){
         current = null;
         ref.detach();
     }
 
-    public void interact(float dx, float dy, float dz){
+    void interact(float dx, float dy, float dz){
         float delta = PApplet.abs(current.mainArea.scene.mouseDX()) >
                 PApplet.abs(current.mainArea.scene.mouseDY()) ?
                 current.mainArea.scene.mouseDX() : current.mainArea.scene.mouseDY();
@@ -90,13 +90,13 @@ static class ScaleGizmo{ //Allows to Scale shape along main axes
         scale(sx, sy, sz);
     }
 
-    public void scale(float x, float y, float z){
+    void scale(float x, float y, float z){
         if(current == null) return;
         current.scaleShape(x, y, z);
     }
 
     //Given a Node determines if belongs to this Tool
-    public boolean hasFocus(Node node){
+    boolean hasFocus(Node node){
         return node == xAxis || node == yAxis || node == zAxis;
     }
 }
