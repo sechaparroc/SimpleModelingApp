@@ -42,3 +42,35 @@ Once a shape is added into the Main interactive area it could be translated, rot
 	- Press '1' to Disable all Gizmos and allowing to update the appearance of a Shape when mouse is clicked.
 
 ![Example](https://github.com/sechaparroc/SimpleModelingApp/blob/main/images/gizmos.gif)	
+
+
+## Basic extrusion interaction and Modes
+
+To facilitate the modeling task, it is possible to generate a new Shape extruding it from an existing one within the Main Area.
+To Extrude you just have to drag from the shape of interest with the RIGHT mouse button while pressing the SHIFT Key.
+
+Currently three extrusion modes are implemented:
+
+	- Current Shape: Create a new Shape according to the data selected in the Color Selection Area and the Shape Selection Area.
+	- Duplicate: Create a new Shape based on the appeareance of the shape that you are interacting with.
+
+## Hierarchies and Setting References systems
+
+When modeling it could be useful to define some reference coordinate systems in such a way that a transformation suffered by it is applied to 
+
+## Cloning a whole Branch
+
+## Removing a whole Branch
+
+## Defining Animations
+
+## Demos
+
+![Example](https://github.com/sechaparroc/SimpleModelingApp/blob/main/images/trees.gif)	
+
+
+
+
+
+
+
